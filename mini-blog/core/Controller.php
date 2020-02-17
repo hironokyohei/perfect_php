@@ -9,6 +9,7 @@ abstract class Controller
     protected $response;
     protected $session;
     protected $db_manager;
+    protected $auth_actions = array();
 
     public function __construct($application)
     {
@@ -63,7 +64,7 @@ abstract class Controller
         $view = new View($this->application->getViewDir(), $defaults);
 
         if (is_null($template)) {
-            $template = $this->application_name;
+            $template = $this->action_name;
         }
 
         $path = $this->controller_name . '/' . $template;
