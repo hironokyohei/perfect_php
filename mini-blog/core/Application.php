@@ -20,11 +20,11 @@ abstract class Application
     {
         if ($debug) {
             $this->debug = true;
-            init_set('display_errors', 1);
+            ini_set('display_errors', 1);
             error_reporting(-1);
         } else {
             $this->debug = true;
-            init_set('display_errors', 0);
+            ini_set('display_errors', 0);
         }
     }
 
@@ -95,7 +95,7 @@ abstract class Application
         try {
             $params = $this->router->resolve($this->request->getPathInfo());
             if ($params === false) {
-                throw new HttpNotFoundException('No route found for ' . $this->response->getPathInfo());
+                throw new HttpNotFoundException('No route found for ' . $this->request->getPathInfo());
             }
 
             $controller = $params['controller'];
