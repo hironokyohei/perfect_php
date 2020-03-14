@@ -1,7 +1,17 @@
 <?php
 
+/**
+ * Request.
+ *
+ * @author Katsuhiro Ogawa <fivestar@nequal.jp>
+ */
 class Request
 {
+    /**
+     * リクエストメソッドがPOSTかどうか判定
+     *
+     * @return boolean
+     */
     public function isPost()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -11,6 +21,13 @@ class Request
         return false;
     }
 
+    /**
+     * GETパラメータを取得
+     *
+     * @param string $name
+     * @param mixed $default 指定したキーが存在しない場合のデフォルト値
+     * @return mixed
+     */
     public function getGet($name, $default = null)
     {
         if (isset($_GET[$name])) {
@@ -20,6 +37,13 @@ class Request
         return $default;
     }
 
+    /**
+     * POSTパラメータを取得
+     *
+     * @param string $name
+     * @param mixed $default 指定したキーが存在しない場合のデフォルト値
+     * @return mixed
+     */
     public function getPost($name, $default = null)
     {
         if (isset($_POST[$name])) {
@@ -29,29 +53,48 @@ class Request
         return $default;
     }
 
+    /**
+     * ホスト名を取得
+     *
+     * @return string
+     */
     public function getHost()
     {
         if (!empty($_SERVER['HTTP_HOST'])) {
             return $_SERVER['HTTP_HOST'];
         }
-
+        
         return $_SERVER['SERVER_NAME'];
     }
 
+    /**
+     * SSLでアクセスされたかどうか判定
+     *
+     * @return boolean
+     */
     public function isSsl()
     {
         if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
             return true;
         }
-
         return false;
     }
 
+    /**
+     * リクエストURIを取得
+     *
+     * @return string
+     */
     public function getRequestUri()
     {
         return $_SERVER['REQUEST_URI'];
     }
 
+    /**
+     * ベースURLを取得
+     *
+     * @return string
+     */
     public function getBaseUrl()
     {
         $script_name = $_SERVER['SCRIPT_NAME'];
@@ -67,6 +110,11 @@ class Request
         return '';
     }
 
+    /**
+     * PATH_INFOを取得
+     *
+     * @return string
+     */
     public function getPathInfo()
     {
         $base_url = $this->getBaseUrl();
